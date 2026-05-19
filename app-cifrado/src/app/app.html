@@ -1,0 +1,102 @@
+<div class="min-h-screen bg-black text-white">
+
+  <!-- Navbar -->
+  <nav class="flex items-center justify-between p-5 border-b border-cyan-500">
+
+    <h1 class="text-3xl font-bold text-cyan-400">
+      CryptoShield
+    </h1>
+
+    <button
+      class="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-lg text-black font-bold"
+    >
+      Login
+    </button>
+
+  </nav>
+
+  <!-- Contenido -->
+  <div class="flex flex-col items-center justify-center mt-20 px-5">
+
+    <!-- Título -->
+    <h2 class="text-5xl font-bold text-center mb-6">
+      Sistema de Cifrado de Archivos
+    </h2>
+
+    <p class="text-gray-400 text-center max-w-2xl mb-10">
+      Protege imágenes, documentos y archivos utilizando algoritmos
+      de cifrado simétrico y asimétrico.
+    </p>
+
+    <!-- Card principal -->
+    <div
+      class="bg-[#07122b] border border-cyan-500 rounded-2xl p-10 w-full max-w-2xl shadow-2xl"
+    >
+
+      <!-- Archivo -->
+      <input
+        type="file"
+        (change)="seleccionarArchivo($event)"
+        class="w-full bg-black border border-gray-700 rounded-lg p-4 mb-6"
+      />
+
+      <!-- Algoritmo -->
+      <select
+        class="w-full bg-black border border-gray-700 rounded-lg p-4 mb-6"
+      >
+        <option>AES-256</option>
+        <option>ChaCha20</option>
+        <option>Camellia-256</option>
+        <option>RSA</option>
+      </select>
+
+      <!-- Contraseña -->
+      <input
+        type="password"
+        [(ngModel)]="claveTexto"
+        placeholder="Escribe una clave secreta"
+        class="w-full bg-black border border-gray-700 rounded-lg p-4 mb-6"
+      />
+
+      <!-- Tipo cifrado -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+
+        <button
+          class="bg-cyan-500 hover:bg-cyan-600 text-black font-bold py-3 rounded-xl"
+        >
+          Simétrico
+        </button>
+
+        <button
+          class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 rounded-xl"
+        >
+          Asimétrico
+        </button>
+
+      </div>
+
+      <!-- Botones -->
+      <button
+        (click)="cifrarArchivo()"
+        class="w-full bg-green-500 hover:bg-green-600 py-4 rounded-xl text-black font-bold text-lg mb-4"
+      >
+        Cifrar Archivo
+      </button>
+
+      <button
+        (click)="descifrarArchivo()"
+        class="w-full bg-yellow-500 hover:bg-yellow-600 py-4 rounded-xl text-black font-bold text-lg"
+      >
+        Descifrar Archivo
+      </button>
+
+      <!-- Mensaje -->
+      <p class="text-center text-cyan-400 mt-6">
+        {{ mensaje }}
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
