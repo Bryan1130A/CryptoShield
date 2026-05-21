@@ -1,6 +1,5 @@
 <div class="app-container">
 
-  <!-- Sidebar -->
   <aside class="sidebar">
 
     <div class="logo">
@@ -27,7 +26,7 @@
       </button>
 
       <button class="menu-item">
-        🗝️ Claves RSA
+        🗝️ Claves PGP
       </button>
 
     </nav>
@@ -43,7 +42,9 @@
 
       <div class="status-item">
         <span>Algoritmo</span>
-        <span class="green-text">AES-GCM</span>
+        <span class="green-text">
+          {{ algoritmo === 'aes' ? 'AES-GCM' : 'PGP RSA' }}
+        </span>
       </div>
 
       <div class="status-item">
@@ -55,19 +56,14 @@
 
   </aside>
 
-  <!-- Main -->
   <main class="main-content">
 
-    <!-- Navbar -->
     <div class="topbar">
-
       <button class="login-btn">
-        Sobre Nosotros  
+        Sobre Nosotros
       </button>
-
     </div>
 
-    <!-- Hero -->
     <div class="hero">
 
       <p class="subtitle">
@@ -79,118 +75,148 @@
       </h2>
 
       <p class="description">
-        Sistema de cifrado futurista con protección avanzada
-        utilizando AES-GCM y RSA-OAEP.
+        Sistema de cifrado con método simétrico AES-GCM y método asimétrico PGP compatible con Kleopatra.
       </p>
 
     </div>
 
-    <!-- Card -->
     <div class="card">
 
-      <!-- Upload -->
       <div class="section-title">
-        1. Selecciona tu archivo
+        1. Selecciona el método
       </div>
 
-      <label class="upload-box">
-
-        <div class="upload-icon">
-          ☁️
-        </div>
-
-        <p class="upload-title">
-          Arrastra y suelta tu archivo
-        </p>
-
-        <p class="upload-subtitle">
-          o haz clic para seleccionar
-        </p>
-
-        <input
-          type="file"
-          (change)="seleccionarArchivo($event)"
-          hidden
-        />
-
-      </label>
-
-      <!-- Inputs -->
-      <div class="input-grid">
-
-        <div>
-
-          <label class="input-label">
-            2. Algoritmo
-          </label>
-
-          <select
-            [(ngModel)]="algoritmo"
-            class="input-control"
-          >
-
-            <option value="aes">
-              AES-GCM
-            </option>
-
-            <option value="rsa">
-              RSA-OAEP
-            </option>
-
-          </select>
-
-        </div>
-
-        <div>
-
-          <label class="input-label">
-            3. Clave secreta
-          </label>
-
-          <input
-            type="password"
-            [(ngModel)]="claveTexto"
-            placeholder="Ingresa tu clave"
-            class="input-control"
-          />
-
-        </div>
-
-      </div>
-
-      <!-- Tipo -->
       <div class="type-grid">
 
-        <button class="type-btn active-type">
+        <button class="type-btn" [class.active-type]="algoritmo === 'aes'" (click)="algoritmo = 'aes'">
           🛡️ Simétrico
         </button>
 
-        <button class="type-btn">
+        <button class="type-btn" [class.active-type]="algoritmo === 'pgp'" (click)="algoritmo = 'pgp'">
           🔑 Asimétrico
         </button>
 
       </div>
 
-      <!-- Botones -->
-      <div class="action-grid">
+      <div class="input-grid">
 
-        <button
-          (click)="cifrarArchivo()"
-          class="encrypt-btn"
-        >
-          🔐 CIFRAR ARCHIVO
-        </button>
+        <div>
+          <label class="input-label">
+            2. Algoritmo
+          </label>
 
-        <button
-          (click)="descifrarArchivo()"
-          class="decrypt-btn"
-        >
-          🔓 DESCIFRAR ARCHIVO
-        </button>
+          <select [(ngModel)]="algoritmo" class="input-control">
+            <option value="aes">
+              AES-GCM
+            </option>
+
+            <option value="pgp">
+              PGP RSA
+            </option>
+          </select>
+        </div>
+
+        <div *ngIf="algoritmo === 'aes'">
+          <label class="input-label">
+            3. Clave secreta
+          </label>
+
+          <input type="password" [(ngModel)]="claveTexto" placeholder="Ingresa tu clave secreta"
+            class="input-control" />
+        </div>
+
+        <div *ngIf="algoritmo === 'pgp'">
+          <label class="input-label">
+            3. Nombre
+          </label>
+
+          <input type="text" [(ngModel)]="nombre" placeholder="Ingresa tu nombre" class="input-control" />
+        </div>
+
+        <div *ngIf="algoritmo === 'pgp'">
+          <label class="input-label">
+            4. Correo
+          </label>
+
+          <input type="email" [(ngModel)]="correo" placeholder="usuario@correo.com" class="input-control" />
+        </div>
 
       </div>
 
-      <!-- Mensaje -->
+      <div *ngIf="algoritmo === 'aes'">
+
+        <div class="section-title">
+          4. Selecciona tu archivo
+        </div>
+
+        <label class="upload-box">
+
+          <div class="upload-icon">
+            ☁️
+          </div>
+
+          <p class="upload-title">
+            Arrastra y suelta tu archivo
+          </p>
+
+          <p class="upload-subtitle">
+            o haz clic para seleccionar
+          </p>
+
+          <input type="file" (change)="seleccionarArchivo($event)" hidden />
+
+        </label>
+
+        <div class="action-grid">
+
+          <button (click)="cifrarArchivo()" class="encrypt-btn">
+            🔐 CIFRAR ARCHIVO
+          </button>
+
+          <button (click)="descifrarArchivo()" class="decrypt-btn">
+            🔓 DESCIFRAR ARCHIVO
+          </button>
+
+        </div>
+
+      </div>
+
+      <div *ngIf="algoritmo === 'pgp'" class="rsa-box">
+
+        <button (click)="generarClavesPGP()" class="rsa-btn">
+          🗝️ GENERAR CLAVES PGP
+        </button>
+
+        <div *ngIf="clavePublicaPGP">
+
+          <label class="input-label">
+            Clave pública PGP
+          </label>
+
+          <textarea class="input-control" rows="8" readonly>{{ clavePublicaPGP }}</textarea>
+
+          <button (click)="descargarClavePublica()" class="rsa-btn">
+            📥 DESCARGAR CLAVE PÚBLICA
+          </button>
+
+        </div>
+
+        <div *ngIf="clavePrivadaPGP">
+
+          <label class="input-label">
+            Clave privada PGP
+          </label>
+
+          <textarea class="input-control" rows="8" readonly>{{ clavePrivadaPGP }}</textarea>
+
+          <button (click)="descargarClavePrivada()" class="rsa-btn">
+            🔐 DESCARGAR CLAVE PRIVADA
+          </button>
+
+        </div>
+
+      </div>
+
       <p class="message">
         {{ mensaje }}
       </p>
