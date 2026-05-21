@@ -1,0 +1,202 @@
+<div class="app-container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <div class="logo-icon">🔒</div>
+
+      <h1>
+        <span class="white">CRYPTO</span>
+        <span class="green">SHIELD</span>
+      </h1>
+    </div>
+
+    <nav class="menu">
+
+      <button class="menu-item active">
+        🏠 Inicio
+      </button>
+
+      <button class="menu-item">
+        🔐 Cifrar
+      </button>
+
+      <button class="menu-item">
+        🔓 Descifrar
+      </button>
+
+      <button class="menu-item">
+        🗝️ Claves RSA
+      </button>
+
+    </nav>
+
+    <div class="status-card">
+
+      <h3>Estado del Sistema</h3>
+
+      <div class="status-item">
+        <span>Seguridad</span>
+        <span class="green-text">Activa</span>
+      </div>
+
+      <div class="status-item">
+        <span>Algoritmo</span>
+        <span class="green-text">AES-GCM</span>
+      </div>
+
+      <div class="status-item">
+        <span>Estado</span>
+        <span class="green-text">Seguro</span>
+      </div>
+
+    </div>
+
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <!-- Navbar -->
+    <div class="topbar">
+
+      <button class="login-btn">
+        Sobre Nosotros  
+      </button>
+
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+
+      <p class="subtitle">
+        Bienvenido a
+      </p>
+
+      <h2 class="hero-title">
+        CRYPTOSHIELD
+      </h2>
+
+      <p class="description">
+        Sistema de cifrado futurista con protección avanzada
+        utilizando AES-GCM y RSA-OAEP.
+      </p>
+
+    </div>
+
+    <!-- Card -->
+    <div class="card">
+
+      <!-- Upload -->
+      <div class="section-title">
+        1. Selecciona tu archivo
+      </div>
+
+      <label class="upload-box">
+
+        <div class="upload-icon">
+          ☁️
+        </div>
+
+        <p class="upload-title">
+          Arrastra y suelta tu archivo
+        </p>
+
+        <p class="upload-subtitle">
+          o haz clic para seleccionar
+        </p>
+
+        <input
+          type="file"
+          (change)="seleccionarArchivo($event)"
+          hidden
+        />
+
+      </label>
+
+      <!-- Inputs -->
+      <div class="input-grid">
+
+        <div>
+
+          <label class="input-label">
+            2. Algoritmo
+          </label>
+
+          <select
+            [(ngModel)]="algoritmo"
+            class="input-control"
+          >
+
+            <option value="aes">
+              AES-GCM
+            </option>
+
+            <option value="rsa">
+              RSA-OAEP
+            </option>
+
+          </select>
+
+        </div>
+
+        <div>
+
+          <label class="input-label">
+            3. Clave secreta
+          </label>
+
+          <input
+            type="password"
+            [(ngModel)]="claveTexto"
+            placeholder="Ingresa tu clave"
+            class="input-control"
+          />
+
+        </div>
+
+      </div>
+
+      <!-- Tipo -->
+      <div class="type-grid">
+
+        <button class="type-btn active-type">
+          🛡️ Simétrico
+        </button>
+
+        <button class="type-btn">
+          🔑 Asimétrico
+        </button>
+
+      </div>
+
+      <!-- Botones -->
+      <div class="action-grid">
+
+        <button
+          (click)="cifrarArchivo()"
+          class="encrypt-btn"
+        >
+          🔐 CIFRAR ARCHIVO
+        </button>
+
+        <button
+          (click)="descifrarArchivo()"
+          class="decrypt-btn"
+        >
+          🔓 DESCIFRAR ARCHIVO
+        </button>
+
+      </div>
+
+      <!-- Mensaje -->
+      <p class="message">
+        {{ mensaje }}
+      </p>
+
+    </div>
+
+  </main>
+
+</div>
