@@ -4,24 +4,122 @@ html,
 body{
   margin:0;
   padding:0;
+
   min-height:100%;
-  font-family:Arial, Helvetica, sans-serif;
 
-  background:
-  linear-gradient(
-    rgba(0,0,0,0.88),
-    rgba(0,0,0,0.92)
-  ),
-  url('https://cdn.pixabay.com/photo/2024/03/27/17/23/ai-generated-8659546_1280.jpg');
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  background-attachment:fixed;
+  overflow-x:hidden;
 
   color:white;
+
+  background:
+  radial-gradient(circle at top left, rgba(0,255,255,0.12), transparent 30%),
+  radial-gradient(circle at bottom right, rgba(187,0,255,0.15), transparent 35%),
+  linear-gradient(
+    135deg,
+    rgba(0,0,0,0.94),
+    rgba(0,5,20,0.96)
+  ),
+  url('https://elements-resized.envatousercontent.com/elements-video-cover-images/files/02dcda65-ae14-4609-b341-8051a0de12a3/inline_image_preview.jpg?w=1600&cf_fit=cover&q=85&format=auto&s=a629b6224d8058bb8314054d14e3927d6dad8b2461ba41539356c0f121cced2b');
+
+  background-size:cover;
+
+  background-position:center;
+
+  background-repeat:no-repeat;
+
+  background-attachment:fixed;
 }
+
+/* RESET */
 
 *{
   box-sizing:border-box;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+  width:10px;
+}
+
+::-webkit-scrollbar-track{
+  background:#020611;
+}
+
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(
+    180deg,
+    #00f0ff,
+    #bb00ff
+  );
+
+  border-radius:20px;
+}
+
+/* SELECTION */
+
+::selection{
+  background:#00f0ff;
+  color:black;
+}
+
+/* FUTURISTIC EFFECT */
+
+body::before{
+  content:'';
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+  linear-gradient(
+    rgba(255,255,255,0.015),
+    rgba(255,255,255,0)
+  );
+
+  pointer-events:none;
+
+  z-index:999;
+}
+
+/* GLOW ANIMATION */
+
+@keyframes pulseGlow{
+
+  0%{
+    opacity:0.5;
+  }
+
+  50%{
+    opacity:1;
+  }
+
+  100%{
+    opacity:0.5;
+  }
+
+}
+
+/* CYBER GRID */
+
+body::after{
+
+  content:'';
+
+  position:fixed;
+
+  inset:0;
+
+  background-image:
+  linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+
+  background-size:40px 40px;
+
+  pointer-events:none;
+
+  z-index:-1;
 }
